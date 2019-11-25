@@ -3,7 +3,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
-<title layout:title-pattern="$LAYOUT_TITLE - $CONTENT">[[#{layout.title}]]</title>
+<title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Formation</title>
 <link rel="stylesheet" type="text/css"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 <link rel="stylesheet"
@@ -11,9 +11,61 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+
+<style>
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+}
+
+li {
+	float: left;
+}
+
+li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+li
+ 
+a
+:hover
+:not
+ 
+(
+.active
+ 
+)
+{
+background-color
+:
+ 
+#111
+;
+
+
+}
+.active {
+	background-color: #4CAF50;
+}
+</style>
+
 </head>
 <body>
-	<header> Mon en-tête </header>
+
+	<ul>
+		<li><a href="/formation-web-spring-th/stagiaire">Stagiaires</a></li>
+		<li><a href="/formation-web-spring-th/formateur">Formateurs</a></li>
+		<li><a href="/formation-web-spring-th/evaluation">Evaluations</a></li>
+	</ul>
+
 	<div class="container">
 		<section layout:fragment="custom-content"></section>
 	</div>
