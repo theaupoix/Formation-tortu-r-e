@@ -8,17 +8,28 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "module")
 public class Module {
 	@Id
+	@NotNull (message = "{module.code.notnull}")
+	@Size(min = 1, message = "{module.code.size}")
 	private Integer code;
 	@Version
 	private int version;
 	@Column(name = "duration")
+	@NotNull(message = "{module.duree.notnull}")
+	@Min(value = 1, message = "{module.duree.min}")
+	@Max(value = 60, message = "{module.duree.max}")
 	private Integer duree;
 	@Column(name = "position")
+	@NotNull(message = "{module.position.notnull}")
+	@Min(message = "{module.position.min}", value = 1)
 	private Integer ordre;
 	@ManyToOne
 	@JoinColumn(name = "training_id")
