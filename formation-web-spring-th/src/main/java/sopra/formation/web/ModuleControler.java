@@ -14,8 +14,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import sopra.formation.model.Filiere;
+import sopra.formation.model.Formateur;
+import sopra.formation.model.Matiere;
 import sopra.formation.model.Module;
+import sopra.formation.model.Salle;
+import sopra.formation.repository.IFiliereRepository;
+import sopra.formation.repository.IMatiereRepository;
 import sopra.formation.repository.IModuleRepository;
+import sopra.formation.repository.IPersonneRepository;
+import sopra.formation.repository.ISalleRepository;
 import sopra.formation.validator.ModuleValidator;
 
 @Controller
@@ -24,6 +32,11 @@ public class ModuleControler {
 
 	@Autowired
 	private IModuleRepository moduleRepo;
+	@Autowired
+	private IFiliereRepository filiereRepo;
+	private ISalleRepository salleRepo;
+	private IPersonneRepository formateurRepo;
+	private IMatiereRepository matiereRepo;
 
 	public ModuleControler() {
 		super();
@@ -40,10 +53,10 @@ public class ModuleControler {
 
 	@GetMapping("/add")
 	public String add(Model model) {
-//		model.addAttribute("Filiere", new Filiere());
-//		model.addAttribute("Salle", new Salle());
-//		model.addAttribute("Formateur", new Formateur());
-//		model.addAttribute("Matiere", new Matiere()); faire le findAllOrphan()
+		model.addAttribute("Filiere", new Filiere());
+		model.addAttribute("Salle", new Salle());
+		model.addAttribute("Formateur", new Formateur());
+		model.addAttribute("Matiere", new Matiere());
 
 		model.addAttribute("module", new Module());
 
@@ -56,10 +69,10 @@ public class ModuleControler {
 
 		model.addAttribute("module", moduleRepo.findById(code).get());
 
-//		model.addAttribute("Filiere", filiereRepo.findAllOrphanAndCurrentStagiaire(id)); faire la méthode dans le repo
-//		model.addAttribute("Salle", salleRepo.findAllOrphanAndCurrentStagiaire(id)); faire la méthode dans le repo
-//		model.addAttribute("Formateur", formateurRepo.findAllOrphanAndCurrentStagiaire(id)); faire la méthode dans le repo
-//		model.addAttribute("Matiere", matiereRepo.findAllOrphanAndCurrentStagiaire(id)); faire la méthode dans le repo
+		model.addAttribute("Filiere", filiereRepo.findAll());
+		model.addAttribute("Salle", salleRepo.findAll());
+		model.addAttribute("Formateur", formateurRepo.findAll());
+		model.addAttribute("Matiere", matiereRepo.findAll());
 		return "module/form";
 	}
 
@@ -69,52 +82,46 @@ public class ModuleControler {
 
 		if (result.hasErrors()) {
 
-//			if (module.getCode() != null) {
-//				model.addAttribute("Filiere", filiereRepo.findAllOrphanAndCurrentModule(module.getCode()));
-//				model.addAttribute("Salle", salleRepo.findAllOrphanAndCurrentModule(module.getCode()));
-//				model.addAttribute("Formateur", formateurRepo.findAllOrphanAndCurrentModule(module.getCode()));
-//				model.addAttribute("Matiere", matiereRepo.findAllOrphanAndCurrentModule(module.getCode()));
-//			} else {
-//				model.addAttribute("Filiere", filiereRepo.findAllOrphan());
-//				model.addAttribute("Salle", salleRepo.findAllOrphan());
-//				model.addAttribute("Formateur", formateurRepo.findAllOrphan());
-//				model.addAttribute("Matiere", matiereRepo.findAllOrphan());
-//			}
+			model.addAttribute("Filiere", filiereRepo.findAll());
+			model.addAttribute("Salle", salleRepo.findAll());
+			model.addAttribute("Formateur", formateurRepo.findAll());
+			model.addAttribute("Matiere", matiereRepo.findAll());
 
 			return "module/form";
 		}
 
-//		if (module.getFiliere().getId() == null)
-//
-//		{
-//			module.setFiliere(null);
-//		}
-//		if (module.getSalle().getNom() == null)
-//
-//		{
-//			module.setSalle(null);
-//		}
-//		if (module.getFormateur().getId() == null)
-//
-//		{
-//			module.setFormateur(null);
-//		}
-//		if (module.getMatiere().getId() == null)
-//
-//		{
-//			module.setMatiere(null);
-//		}
+		if (module.getFiliere().getId() == null)
+
+		{
+			module.setFiliere(null);
+		}
+		if (module.getSalle().getNom() == null)
+
+		{
+			module.setSalle(null);
+		}
+		if (module.getFormateur().getId() == null)
+
+		{
+			module.setFormateur(null);
+		}
+		if (module.getMatiere().getId() == null)
+
+		{
+			module.setMatiere(null);
+		}
 
 		moduleRepo.save(module);
 
 		return "redirect:/module/list";
 	}
+
 	@GetMapping("/cancel")
 	public String cancel() {
 		return "forward:/module/list";
 	}
-	
-	@GetMapping ("/delete")
+
+	@GetMapping("/delete")
 	public String delete(@RequestParam("id") Integer codeModule, Model model) {
 		moduleRepo.deleteById(codeModule);
 		return list(model);
