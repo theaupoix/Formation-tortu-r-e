@@ -27,12 +27,8 @@ public class EvaluationController {
 		super();
 	}
 	
-	@GetMapping("")
-	public String home() {
-		return "forward:list";
-	}
 
-	@GetMapping("/list")
+	@GetMapping({"", "/list"})
 	public String list(Model model) {
 		List<Evaluation> evaluations = evaluationRepo.findAll();
 
