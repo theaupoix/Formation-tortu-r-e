@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout.html">
+<head>
+<meta charset="UTF-8">
+<title>[[#{evaluation.list.title}]]</title>
+</head>
+<body>
+
+	<section layout:fragment="custom-content">
+		<div class="card mt-3">
+			<div class="card-header bg-info text-white">
+				<h2>[[#{evaluation.list.titleBis}]]</h2>
+			</div>
+			<div class="card-body">
+				<table id="filiereTable" class="table table-striped">
+					<thead>
+						<tr>
+							<th>[[#{evaluation.list.id}]]</th>
+							<th>[[#{evaluation.list.version}]]</th>
+							<th>[[#{evaluation.list.comportementale}]]</th>
+							<th>[[#{evaluation.list.technique}]]</th>
+							<th>[[#{evaluation.list.commentaires}]]</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="eval : ${mesEvaluations}">
+							<td th:text="${eval.id}"></td>
+							<td>[[${eval.version}]]</td>
+							<td>[[${eval.comportementale}]]</td>
+							<td>[[${eval.technique}]]</td>
+							<td>[[${eval.commentaires}]]</td>
+							<td><div class="btn-group btn-group-sm">
+									<a class="btn btn-primary"
+										th:href="@{/evaluation/edit(id=${eval.id})}"><i
+										class="fa fa-edit"></i></a><a class="btn btn-danger"
+										th:href="@{/evaluation/delete(id=${eval.id})}"><i
+										class="fa fa-trash"></i></a>
+								</div></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="card-footer">
+				<a th:href="@{/evaluation/add}" class="btn btn-success btn-lg">
+					<i class="fa fa-plus"></i>
+				</a>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

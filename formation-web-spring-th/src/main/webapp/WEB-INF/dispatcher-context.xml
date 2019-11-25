@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<!-- Activation des annotations @Controller, @RequestMapping, ... -->
+	<mvc:annotation-driven validator="validator"/>
+
+	<!-- Scanner le package où se situe les Controller -->
+	<context:component-scan
+		base-package="sopra.formation.web" />
+
+	<!-- Exclusion des url /css/** et /assets/** -->
+	<mvc:resources mapping="/css/**" location="/css/" />
+	<mvc:resources mapping="/assets/**" location="/assets/" />
+
+	<!-- Configure le chemin des templates Thymeleaf -->
+	<bean id="templateResolver"
+		class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
+		<property name="prefix" value="/WEB-INF/templates/" />
+		<property name="suffix" value=".html" />
+		<property name="templateMode" value="HTML" />
+	</bean>
+	
+	<!-- Configure le moteur Thymeleaf en lui précision le templateResolver et des options supplémentaires -->
+	<bean id="templateEngine"
+		class="org.thymeleaf.spring5.SpringTemplateEngine">
+		<property name="templateResolver" ref="templateResolver" />
+		<property name="enableSpringELCompiler" value="true" />
+		<property name="additionalDialects">
+			<set>
+				<bean class="nz.net.ultraq.thymeleaf.LayoutDialect" />
+			</set>
+		</property>
+	</bean>
+	
+	<!-- Permet à Spring MVC de savoir quel moteur de rendu (View) utilisé -->
+	<!-- En remplacement du ViewResolver standard en JSP/JSTL -->
+	<bean id="viewResolver"
+		class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
+		<property name="templateEngine" ref="templateEngine" />
+	</bean>
+	
+	<!-- Charge le bundle traductions en mémoire -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="traductions" />
+	</bean>
+	
+	<!-- Indique comment stocker (en session) et la langue par défaut -->
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+		<property name="defaultLocale" value="fr" />
+	</bean>
+	
+	<!-- Permet d'avoir un paramètre en url (lang) avec lequel nous pouvons changer la langue de l'utilisateur -->
+	<mvc:interceptors>
+		<bean
+			class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			<property name="paramName" value="lang" />
+		</bean>
+	</mvc:interceptors>
+	
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="validationMessageSource" ref="messageSource"/>
+	</bean>
+
+</beans>

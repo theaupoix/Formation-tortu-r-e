@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout.html">
+<head>
+<meta charset="UTF-8">
+<title>Edition de l'évaluation</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+</head>
+<body>
+
+	<section layout:fragment="custom-content">
+		<form th:action="@{/stagiaire/save}" method="post">
+			<input type="hidden" name="id" th:value="${stagiaire.id}"> 
+			<input type="hidden" name="version" th:value="${stagiaire.version}">
+			<div id="filiereForm" class="card mt-3">
+				<div class="card-header bg-info text-white">
+					<h3>Edition du stagiaire</h3>
+				</div>
+				<div class="card-body">
+					<div class="form-group">
+						<label for="nom">Nom:</label> <input
+							type="text" class="form-control" id="nom"
+							name="nom" th:value="${stagiaire.nom}">
+						<span class="text-danger"
+							th:errors="${stagiaire.nom}"></span>
+					</div>
+					<div class="form-group">
+						<label for="prenom">Prénom:</label> <input
+							type="text" class="form-control" id="prenom"
+							name="prenom" th:value="${stagiaire.prenom}">
+						<span class="text-danger"
+							th:errors="${stagiaire.prenom}"></span>
+					</div>
+					<div class="form-group">
+						<label for="email">Courriel:</label> <input
+							type="text" class="form-control" id="email"
+							name="email" th:value="${stagiaire.email}">
+						<span class="text-danger"
+							th:errors="${stagiaire.email}"></span>
+					</div>
+					<div class="form-group">
+						<label for="telephone">Téléphone:</label> <input
+							type="text" class="form-control" id="telephone"
+							name="telephone" th:value="${stagiaire.telephone}">
+						<span class="text-danger"
+							th:errors="${stagiaire.telephone}"></span>
+					</div>
+					<div class="form-group">
+						<label for="dtNaissance">Date de naissance:</label> <input
+							type="date" class="form-control" id="dtNaissance"
+							name="dtNaissance" th:value="${stagiaire.dtNaissance}">
+						<span class="text-danger"
+							th:errors="${stagiaire.dtNaissance}"></span>
+					</div>
+					<div class="form-group">
+						<label for="niveauEtude">Niveau d'étude:</label> 
+						
+						<select  class="form-control" id="niveauEtude"
+							name="niveauEtude">
+							<option value="">Choisir un niveau d'étude</option>
+							<option th:each="niv : ${niveauEtudes}" th:value="${niv}" th:selected="${stagiaire.niveauEtude == niv}">[[${niv.label}]]</option>
+						</select>
+						<span class="text-danger"
+							th:errors="${stagiaire.niveauEtude}"></span>
+					</div>
+					<div class="form-group">
+						<label for="rue">Rue:</label> <input
+							type="text" class="form-control" id="rue"
+							name="adresse.rue" th:value="${stagiaire.adresse?.rue}">
+						<span class="text-danger"
+							th:errors="${stagiaire.adresse.rue}"></span>
+					</div>
+					<div class="form-group">
+						<label for="complement">Complément:</label> <input
+							type="text" class="form-control" id="complement"
+							name="adresse.complement" th:value="${stagiaire.adresse?.complement}">
+						<span class="text-danger"
+							th:errors="${stagiaire.adresse.complement}"></span>
+					</div>
+					<div class="form-group">
+						<label for="codePostal">Code postal:</label> <input
+							type="text" class="form-control" id="codePostal"
+							name="adresse.codePostal" th:value="${stagiaire.adresse?.codePostal}">
+						<span class="text-danger"
+							th:errors="${stagiaire.adresse.codePostal}"></span>
+					</div>
+					<div class="form-group">
+						<label for="ville">Ville:</label> <input
+							type="text" class="form-control" id="ville"
+							name="adresse.ville" th:value="${stagiaire.adresse?.ville}">
+						<span class="text-danger"
+							th:errors="${stagiaire.adresse.ville}"></span>
+					</div>
+					<div class="form-group">
+						<label for="evaluation">Evaluation:</label> 
+						
+						<select  class="form-control" id="evaluation"
+							name="evaluation.id">
+							<option value="">Choisir une evaluation</option>
+								<option th:each="eval : ${evaluations}" th:value="${eval.id}" th:selected="${stagiaire.evaluation?.id == eval.id}">[[${eval.id}]] - [[${eval.commentaires}]]</option>
+						</select>
+						<span class="text-danger"
+							th:errors="${stagiaire.evaluation.id}"></span>
+					</div>
+				</div>
+				<div class="card-footer">
+					<div class="btn-group btn-group-lg float-right">
+						<button type="submit" class="btn btn-success">
+							<i class="fa fa-check"></i>
+						</button>
+						<a th:href="@{/stagiaire/cancel}" class="btn btn-warning"> <i
+							class="fa fa-undo"></i>
+						</a>
+					</div>
+				</div>
+
+			</div>
+		</form>
+
+	</section>
+</body>
+</html>

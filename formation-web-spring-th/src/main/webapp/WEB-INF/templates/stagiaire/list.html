@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout.html">
+<head>
+<meta charset="UTF-8">
+<title>Liste des stagiaires</title>
+</head>
+<body>
+
+	<section layout:fragment="custom-content">
+		<div class="card mt-3">
+			<div class="card-header bg-info text-white">
+				<h2>Liste des stagiaires</h2>
+			</div>
+			<div class="card-body">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Nom</th>
+							<th>Prénom</th>
+							<th>Courriel</th>
+							<th>Téléphone</th>
+							<th>Date de naissance</th>
+							<th>Niveau d'étude</th>
+							<th>Rue</th>
+							<th>Complément</th>
+							<th>Code postal</th>
+							<th>Ville</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="stagiaire : ${stagiaires}">
+							<td>[[${stagiaire.nom}]]</td>
+							<td>[[${stagiaire.prenom}]]</td>
+							<td>[[${stagiaire.email}]]</td>
+							<td>[[${stagiaire.telephone}]]</td>
+							<td>[[${#dates.format(stagiaire.dtNaissance, 'dd/MM/yyyy')}]]</td>
+							<td>[[${stagiaire.niveauEtude?.label}]]</td>
+							<td>[[${stagiaire.adresse?.rue}]]</td>
+							<td>[[${stagiaire.adresse?.complement}]]</td>
+							<td>[[${stagiaire.adresse?.codePostal}]]</td>
+							<td>[[${stagiaire.adresse?.ville}]]</td>
+							<td><div class="btn-group btn-group-sm">
+									<a class="btn btn-primary"
+										th:href="@{/stagiaire/edit(id=${stagiaire.id})}"><i
+										class="fa fa-edit"></i></a><a class="btn btn-danger"
+										th:href="@{/stagiaire/delete(id=${stagiaire.id})}"><i
+										class="fa fa-trash"></i></a>
+								</div></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="card-footer">
+				<a th:href="@{/stagiaire/add}" class="btn btn-success btn-lg">
+					<i class="fa fa-plus"></i>
+				</a>
+			</div>
+		</div>
+	</section>
+</body>
+</html>
