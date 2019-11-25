@@ -16,6 +16,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "training", uniqueConstraints = { @UniqueConstraint(columnNames = { "title", "startdate" }) })
@@ -26,15 +30,21 @@ public class Filiere {
 	@Version
 	private int version;
 	@Column(name = "title")
+	@NotBlank(message="Rentrez un intitule")
 	private String intitule;
 	@Column(name = "prom")
+	@NotBlank(message="Rentrez une promtion")
 	private String promotion;
 	@Column(name = "startdate")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@NotNull(message="Rentrez une date")
 	private Date dtDebut;
 	@Column(name = "duration")
+	@NotNull(message="Rentrez une duree")
 	private Integer duree;
 	@Enumerated(EnumType.STRING)
 	@Column(name = "device")
+	@NotNull(message="Rentrez un dispositif")
 	private Dispositif dispositif;
 	@OneToMany(mappedBy = "filiere")
 	private List<Module> modules = new ArrayList<Module>();
