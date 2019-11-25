@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout.html">
+<head>
+<meta charset="UTF-8">
+<title>[[#{filiere.list.title}]]</title>
+</head>
+<body>
+
+	<section layout:fragment="custom-content">
+		<div class="card mt-3">
+			<div class="card-header bg-info text-white">
+				<h2>[[#{filiere.list.titleBis}]]</h2>
+			</div>
+			<div class="card-body">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>[[#{filiere.list.intitule}]]</th>
+							<th>[[#{filiere.list.promotion}]]</th>
+							<th>[[#{filiere.list.dtDebut}]]</th>
+							<th>[[#{filiere.list.duree}]]</th>
+							<th>[[#{filiere.list.dispositif}]]</th>
+							<th>[[#{filiere.list.referent}]]
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="filiere : ${filieres}">
+							<td>[[${filiere.intitule}]]</td>
+							<td>[[${filiere.promotion}]]</td>
+							<td>[[${#dates.format(filiere.dtDebut, 'dd/MM/yyyy')}]]</td>
+							<td>[[${filiere.duree}]]</td>
+							<td>[[${filiere.dispositif?.label}]]</td>
+							<td>[[${filiere.referent?.nom}]]
+							<td><div class="btn-group btn-group-sm">
+									<a class="btn btn-primary"
+										th:href="@{/filiere/edit(id=${filiere.id})}"><i
+										class="fa fa-edit"></i></a><a class="btn btn-danger"
+										th:href="@{/filiere/delete(id=${filiere.id})}"><i
+										class="fa fa-trash"></i></a>
+								</div></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="card-footer">
+				<a th:href="@{/filiere/add}" class="btn btn-success btn-lg">
+					<i class="fa fa-plus"></i>
+				</a>
+			</div>
+		</div>
+	</section>
+</body>
+</html>
