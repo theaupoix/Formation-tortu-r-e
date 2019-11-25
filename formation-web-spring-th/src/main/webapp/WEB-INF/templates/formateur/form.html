@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout.html">
+<head>
+<meta charset="UTF-8">
+<title>[[#{formateur.form.title}]]</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+</head>
+<body>
+
+	<section layout:fragment="custom-content">
+		<form th:action="@{/formateur/save}" method="post">
+			<input type="hidden" name="id" th:value="${formateur.id}"> <input
+				type="hidden" name="version" th:value="${formateur.version}">
+			<div id="filiereForm" class="card mt-3">
+				<div class="card-header bg-info text-white">
+					<h3>[[#{formateur.form.titleBis}]]</h3>
+				</div>
+				<div class="card-body">
+					<div class="form-group">
+						<label for="nom">[[#{formateur.form.nom}]]</label> <input type="text"
+							class="form-control" id="nom" name="nom"
+							th:value="${formateur.nom}"> <span class="text-danger"
+							th:errors="${formateur.nom}"></span>
+					</div>
+					<div class="form-group">
+						<label for="prenom">[[#{formateur.form.prenom}]]</label> <input type="text"
+							class="form-control" id="prenom" name="prenom"
+							th:value="${formateur.prenom}"> <span class="text-danger"
+							th:errors="${formateur.prenom}"></span>
+					</div>
+					<div class="form-group">
+						<label for="email">[[#{formateur.form.email}]]</label> <input type="text"
+							class="form-control" id="email" name="email"
+							th:value="${formateur.email}"> <span class="text-danger"
+							th:errors="${formateur.email}"></span>
+					</div>
+					<div class="form-group">
+						<label for="telephone">[[#{formateur.form.telephone}]]</label> <input type="text"
+							class="form-control" id="telephone" name="telephone"
+							th:value="${formateur.telephone}"> <span
+							class="text-danger" th:errors="${formateur.telephone}"></span>
+					</div>
+					<div class="form-group">
+						<label for="telephone">[[#{formateur.form.experience}]]</label> <input type="number"
+							class="form-control" id="experience" name="experience"
+							th:value="${formateur.experience}">
+					</div>
+					<div class="form-group">
+						<label for="rue">[[#{formateur.form.rue}]]</label> <input type="text"
+							class="form-control" id="rue" name="adresse.rue"
+							th:value="${formateur.adresse?.rue}"> <span
+							class="text-danger" th:errors="${formateur.adresse.rue}"></span>
+					</div>
+					<div class="form-group">
+						<label for="complement">[[#{formateur.form.complement}]]</label> <input type="text"
+							class="form-control" id="complement" name="adresse.complement"
+							th:value="${formateur.adresse?.complement}"> <span
+							class="text-danger" th:errors="${formateur.adresse.complement}"></span>
+					</div>
+					<div class="form-group">
+						<label for="codePostal">[[#{formateur.form.codePostal}]]</label> <input type="text"
+							class="form-control" id="codePostal" name="adresse.codePostal"
+							th:value="${formateur.adresse?.codePostal}"> <span
+							class="text-danger" th:errors="${formateur.adresse.codePostal}"></span>
+					</div>
+					<div class="form-group">
+						<label for="ville">[[#{formateur.form.ville}]]</label> <input type="text"
+							class="form-control" id="ville" name="adresse.ville"
+							th:value="${formateur.adresse?.ville}"> <span
+							class="text-danger" th:errors="${formateur.adresse.ville}"></span>
+					</div>
+				</div>
+				<div class="card-footer">
+					<div class="btn-group btn-group-lg float-right">
+						<button type="submit" class="btn btn-success">
+							<i class="fa fa-check"></i>
+						</button>
+						<a th:href="@{/formateur/cancel}" class="btn btn-warning"> <i
+							class="fa fa-undo"></i>
+						</a>
+					</div>
+				</div>
+
+			</div>
+		</form>
+
+	</section>
+</body>
+</html>

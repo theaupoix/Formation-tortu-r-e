@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout.html">
+<head>
+<meta charset="UTF-8">
+<title>[[#{formateur.list.title}]]</title>
+</head>
+<body>
+
+	<section layout:fragment="custom-content">
+		<div class="card mt-3">
+			<div class="card-header bg-info text-white">
+				<h2>[[#{formateur.list.titleBis}]]</h2>
+			</div>
+			<div class="card-body">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>[[#{formateur.list.nom}]]</th>
+							<th>[[#{formateur.list.prenom}]]</th>
+							<th>[[#{formateur.list.email}]]</th>
+							<th>[[#{formateur.list.telephone}]]</th>
+							<th>[[#{formateur.list.experience}]]</th>
+							<th>[[#{formateur.list.rue}]]</th>
+							<th>[[#{formateur.list.complement}]]</th>
+							<th>[[#{formateur.list.codePostal}]]</th>
+							<th>[[#{formateur.list.ville}]]</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="formateur : ${formateurs}">
+							<td>[[${formateur.nom}]]</td>
+							<td>[[${formateur.prenom}]]</td>
+							<td>[[${formateur.email}]]</td>
+							<td>[[${formateur.telephone}]]</td>
+							<td>[[${formateur.experience}]]</td>
+							<td>[[${formateur.adresse?.rue}]]</td>
+							<td>[[${formateur.adresse?.complement}]]</td>
+							<td>[[${formateur.adresse?.codePostal}]]</td>
+							<td>[[${formateur.adresse?.ville}]]</td>
+							<td><div class="btn-group btn-group-sm">
+									<a class="btn btn-primary"
+										th:href="@{/formateur/edit(id=${formateur.id})}"><i
+										class="fa fa-edit"></i></a><a class="btn btn-danger"
+										th:href="@{/formateur/delete(id=${formateur.id})}"><i
+										class="fa fa-trash"></i></a>
+								</div></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="card-footer">
+				<a th:href="@{/formateur/add}" class="btn btn-success btn-lg">
+					<i class="fa fa-plus"></i>
+				</a>
+			</div>
+		</div>
+	</section>
+</body>
+</html>
