@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout.html">
+<head>
+<meta charset="UTF-8">
+<title>[[#{matiere.list.title}]]</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+</head>
+<body>
+
+	<section layout:fragment="custom-content">
+		<form th:action="@{/matiere/save}" method="post">
+			<input type="hidden" name="version" th:value="${matiere.version}">
+			<div id="filiereForm" class="card mt-3">
+				<div class="card-header bg-info text-white">
+					<h3>[[#{matiere.list.titleBis}]]</h3>
+				</div>
+				</div>
+				<div class="card-body">
+
+				<div class="form-group">
+					<label for="nom">[[#{matiere.list.nom}]]</label> <input
+						type="text" class="form-control" id="nom" name="nom"
+						th:value="${matiere.id?.nom}">
+				</div>
+				
+				
+				<div class="form-group">
+						<label for="niveau">[[#{matiere.list.niveau}]]</label> 
+						
+						<select  class="form-control" id="niveau"
+							name="niveau">
+							<option value="">Choisir un niveau de matière</option>
+							<option th:each="niv : ${niveauMatieres}" th:value="${niv}" th:selected="${matiere.id?.niveau == niv}">[[${niv.label}]]</option>
+						</select>
+				
+				</div>
+				
+				
+				
+				
+<!-- 				<div class="form-group"> -->
+<!-- 					<label for="niveauMatiere">[[#{matiere.list.level}]]</label> <input -->
+<!-- 						type="text" class="form-control" id="niveauMatiere" name="niveauMatiere" -->
+<!-- 						th:value="${matiere.id?.niveau}"> -->
+<!-- 				</div> -->
+				<div class="card-body">
+					<div class="form-group">
+						<label for="duree">[[#{matiere.list.duree}]]</label> <input
+							type="number" class="form-control" id="duree" name="duree"
+							th:value="${matiere.duree}">
+												<span class="text-danger"
+													th:errors="${matiere.duree}"></span>
+				</div>
+
+					<div class="form-group">
+						<label for="prerequis">[[#{matiere.list.prerequis}]]</label> <input
+							type="text" class="form-control" id="preRequis" name="preRequis"
+							th:value="${matiere.preRequis}">
+						<!-- 						<span class="text-danger" -->
+						<!-- 						th:errors="${matiere.prerequis}"></span> -->
+					</div>
+					<div class="form-group">
+						<label for="objectifs">[[#{matiere.list.objectifs}]]</label> <input
+							type="text" class="form-control" id="email" name="objectifs"
+							th:value="${matiere.objectifs}">
+						<!-- 						<span class="text-danger" -->
+						<!-- 							th:errors="${matiere.objectifs}"></span> -->
+					</div>
+					<div class="form-group">
+						<label for="programme">[[#{matiere.list.programme}]]</label> <input
+							type="text" class="form-control" id="programme" name="programme"
+							th:value="${matiere.programme}">
+						<!-- 						<span class="text-danger" -->
+						<!-- 							th:errors="${matiere.telephone}"></span> -->
+					</div>
+				</div>
+				<div class="card-footer">
+					<div class="btn-group btn-group-lg float-right">
+						<button type="submit" class="btn btn-success">
+							<i class="fa fa-check"></i>
+						</button>
+						<a th:href="@{/matiere/cancel}" class="btn btn-warning"> <i
+							class="fa fa-undo"></i>
+						</a>
+					</div>
+				</div>
+
+			</div>
+		</form>
+
+	</section>
+</body>
+</html>

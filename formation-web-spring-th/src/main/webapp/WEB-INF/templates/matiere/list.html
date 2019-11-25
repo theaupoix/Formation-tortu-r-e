@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout.html">
+<head>
+<meta charset="UTF-8">
+<title>[[#{matiere.list.title}]]</title>
+</head>
+<body>
+
+	<section layout:fragment="custom-content">
+		<div class="card mt-3">
+			<div class="card-header bg-info text-white">
+				<h2>[[#{matiere.list.titleBis}]]</h2>
+			</div>
+			<div class="card-body">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>[[#{matiere.list.nom}]]</th>
+							<th>[[#{matiere.list.niveau}]]</th>
+							<th>[[#{matiere.list.version}]]</th>
+							<th>[[#{matiere.list.duree}]]</th>
+							<th>[[#{matiere.list.prerequis}]]</th>
+							<th>[[#{matiere.list.objectifs}]]</th>
+							<th>[[#{matiere.list.programme}]]</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="matiere : ${matieres}">
+							<td>[[${matiere.id?.nom}]]</td>
+							<td>[[${matiere.id?.niveau}]]</td>
+							<td>[[${matiere.version}]]</td>
+							<td>[[${matiere.duree}]]</td>
+							<td>[[${matiere.preRequis}]]</td>
+							<td>[[${matiere.objectifs}]]</td>
+							<td>[[${matiere.programme}]]</td>
+
+							<td><div class="btn-group btn-group-sm">
+									<a class="btn btn-primary"
+										th:href="@{/matiere/edit(nom=${matiere.id.nom},niveau=${matiere.id.niveau})}"><i
+										class="fa fa-edit"></i></a><a class="btn btn-danger"
+										th:href="@{/matiere/delete(nom=${matiere.id.nom},niveau=${matiere.id.niveau})}"><i
+										class="fa fa-trash"></i></a>
+								</div></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="card-footer">
+				<a th:href="@{/matiere/add}" class="btn btn-success btn-lg"> <i
+					class="fa fa-plus"></i>
+				</a>
+			</div>
+		</div>
+	</section>
+</body>
+</html>
