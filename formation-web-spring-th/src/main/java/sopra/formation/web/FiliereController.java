@@ -34,9 +34,7 @@ public class FiliereController {
 	@GetMapping({ "", "/list" })
 	public String list(Model model) {
 		List<Filiere> filieres = filiereRepo.findAll();
-
 		model.addAttribute("filieres", filieres);
-
 		return "filiere/list";
 	}
 
