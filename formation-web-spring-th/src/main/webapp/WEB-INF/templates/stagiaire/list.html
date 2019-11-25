@@ -2,10 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="layout.html">
+
 <head>
 <meta charset="UTF-8">
+
 <title>Liste des stagiaires</title>
 </head>
+
 <body>
 
 	<section layout:fragment="custom-content">
@@ -36,7 +39,8 @@
 							<td>[[${stagiaire.prenom}]]</td>
 							<td>[[${stagiaire.email}]]</td>
 							<td>[[${stagiaire.telephone}]]</td>
-							<td>[[${#dates.format(stagiaire.dtNaissance, 'dd/MM/yyyy')}]]</td>
+							<td>[[${#dates.format(stagiaire.dtNaissance,
+								'dd/MM/yyyy')}]]</td>
 							<td>[[${stagiaire.niveauEtude?.label}]]</td>
 							<td>[[${stagiaire.adresse?.rue}]]</td>
 							<td>[[${stagiaire.adresse?.complement}]]</td>
@@ -54,8 +58,8 @@
 				</table>
 			</div>
 			<div class="card-footer">
-				<a th:href="@{/stagiaire/add}" class="btn btn-success btn-lg">
-					<i class="fa fa-plus"></i>
+				<a th:href="@{/stagiaire/add}" class="btn btn-success btn-lg"> <i
+					class="fa fa-plus"></i>
 				</a>
 			</div>
 		</div>

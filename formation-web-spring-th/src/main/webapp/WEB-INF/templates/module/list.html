@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout.html">
+<head>
+<meta charset="UTF-8">
+<title>[[#{module.list.title}]]</title>
+</head>
+<body>
+
+	<section layout:fragment="custom-content">
+		<div class="card mt-3">
+			<div class="card-header bg-info text-white">
+				<h2>[[#{module.list.titleBis}]]</h2>
+			</div>
+			<div class="card-body">
+				<table id="moduleTable" class="table table-striped">
+					<thead>
+						<tr>
+							<th>[[#{module.list.version}]]</th>
+							<th>[[#{module.list.code}]]</th>
+							<th>[[#{module.list.duree}]]</th>
+							<th>[[#{module.list.ordre}]]</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="module : ${modules}">
+							<td>[[${module.version}]]</td>
+							<td>[[${module.code}]]</td>
+							<td>[[${module.duree}]]</td>
+							<td>[[${module.ordre}]]</td>
+							<td><div class="btn-group btn-group-sm">
+									<a class="btn btn-primary"
+										th:href="@{/module/edit(id=${module.code})}"><i
+										class="fa fa-edit"></i></a><a class="btn btn-danger"
+										th:href="@{/module/delete(id=${module.code})}"><i
+										class="fa fa-trash"></i></a>
+								</div></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="card-footer">
+				<a th:href="@{/module/add}" class="btn btn-success btn-lg"> <i
+					class="fa fa-plus"></i>
+				</a>
+			</div>
+		</div>
+	</section>
+</body>
+</html>
