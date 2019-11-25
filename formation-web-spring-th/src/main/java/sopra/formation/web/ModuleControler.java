@@ -45,16 +45,16 @@ public class ModuleControler {
 //		model.addAttribute("Formateur", new Formateur());
 //		model.addAttribute("Matiere", new Matiere()); faire le findAllOrphan()
 
-		model.addAttribute("Module", new Module());
+		model.addAttribute("module", new Module());
 
 		return "module/form";
 
 	}
 
 	@GetMapping("/edit")
-	public String edit(@RequestParam("code") Integer code, Model model) {
+	public String edit(@RequestParam("id") Integer code, Model model) {
 
-		model.addAttribute("Module", moduleRepo.findById(code).get());
+		model.addAttribute("module", moduleRepo.findById(code).get());
 
 //		model.addAttribute("Filiere", filiereRepo.findAllOrphanAndCurrentStagiaire(id)); faire la méthode dans le repo
 //		model.addAttribute("Salle", salleRepo.findAllOrphanAndCurrentStagiaire(id)); faire la méthode dans le repo
@@ -64,10 +64,10 @@ public class ModuleControler {
 	}
 
 	@PostMapping("/save")
-	public String save(@ModelAttribute("module") @Valid Module module, BindingResult result, Model model) {
+	public String save(@ModelAttribute("id") @Valid Module module, BindingResult result, Model model) {
 		new ModuleValidator().validate(module, result);
 
-//		if (result.hasErrors()) {
+		if (result.hasErrors()) {
 
 //			if (module.getCode() != null) {
 //				model.addAttribute("Filiere", filiereRepo.findAllOrphanAndCurrentModule(module.getCode()));
@@ -81,40 +81,42 @@ public class ModuleControler {
 //				model.addAttribute("Matiere", matiereRepo.findAllOrphan());
 //			}
 
-//			return "module/form";
+			return "module/form";
+		}
+
+//		if (module.getFiliere().getId() == null)
+//
+//		{
+//			module.setFiliere(null);
 //		}
-
-		if (module.getFiliere().getId() == null)
-
-		{
-			module.setFiliere(null);
-		}
-		if (module.getSalle().getNom() == null)
-
-		{
-			module.setSalle(null);
-		}
-		if (module.getFormateur().getId() == null)
-
-		{
-			module.setFormateur(null);
-		}
-		if (module.getMatiere().getId() == null)
-
-		{
-			module.setMatiere(null);
-		}
+//		if (module.getSalle().getNom() == null)
+//
+//		{
+//			module.setSalle(null);
+//		}
+//		if (module.getFormateur().getId() == null)
+//
+//		{
+//			module.setFormateur(null);
+//		}
+//		if (module.getMatiere().getId() == null)
+//
+//		{
+//			module.setMatiere(null);
+//		}
 
 		moduleRepo.save(module);
 
-		return "redirect:/stagiaire/list";
+		return "redirect:/module/list";
 	}
-
-	public String cancel(Model model) {
+	@GetMapping("/cancel")
+	public String cancel() {
 		return "forward:/module/list";
 	}
-
-	public String delete(Model model) {
+	
+	@GetMapping ("/delete")
+	public String delete(@RequestParam("id") Integer codeModule, Model model) {
+		moduleRepo.deleteById(codeModule);
 		return list(model);
 	};
 }

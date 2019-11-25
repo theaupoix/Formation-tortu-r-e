@@ -14,29 +14,27 @@
 				<h2>[[#{module.list.titleBis}]]</h2>
 			</div>
 			<div class="card-body">
-				<table id="filiereTable" class="table table-striped">
+				<table id="moduleTable" class="table table-striped">
 					<thead>
 						<tr>
-							<th>[[#{module.list.id}]]</th>
 							<th>[[#{module.list.version}]]</th>
-							<th>[[#{module.list.comportementale}]]</th>
-							<th>[[#{module.list.technique}]]</th>
-							<th>[[#{module.list.commentaires}]]</th>
+							<th>[[#{module.list.code}]]</th>
+							<th>[[#{module.list.duree}]]</th>
+							<th>[[#{module.list.ordre}]]</th>
 							<th></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="eval : ${mesModules}">
-							<td th:text="${eval.id}"></td>
-							<td>[[${eval.version}]]</td>
-							<td>[[${eval.comportementale}]]</td>
-							<td>[[${eval.technique}]]</td>
-							<td>[[${eval.commentaires}]]</td>
+						<tr th:each="module : ${modules}">
+							<td>[[${module.version}]]</td>
+							<td>[[${module.code}]]</td>
+							<td>[[${module.duree}]]</td>
+							<td>[[${module.ordre}]]</td>
 							<td><div class="btn-group btn-group-sm">
 									<a class="btn btn-primary"
-										th:href="@{/module/edit(id=${eval.id})}"><i
+										th:href="@{/module/edit(id=${module.code})}"><i
 										class="fa fa-edit"></i></a><a class="btn btn-danger"
-										th:href="@{/module/delete(id=${eval.id})}"><i
+										th:href="@{/module/delete(id=${module.code})}"><i
 										class="fa fa-trash"></i></a>
 								</div></td>
 						</tr>
@@ -44,8 +42,8 @@
 				</table>
 			</div>
 			<div class="card-footer">
-				<a th:href="@{/module/add}" class="btn btn-success btn-lg">
-					<i class="fa fa-plus"></i>
+				<a th:href="@{/module/add}" class="btn btn-success btn-lg"> <i
+					class="fa fa-plus"></i>
 				</a>
 			</div>
 		</div>
