@@ -34,7 +34,7 @@
 						
 						<select  class="form-control" id="niveau"
 							name="niveau">
-							<option value="">matiere.form.choix</option>
+							<option value="">[[#{matiere.form.choix}]]</option>
 							<option th:each="niv : ${niveauMatieres}" th:value="${niv}" th:selected="${matiere.id?.niveau == niv}">[[${niv.label}]]</option>
 						</select>
 				
