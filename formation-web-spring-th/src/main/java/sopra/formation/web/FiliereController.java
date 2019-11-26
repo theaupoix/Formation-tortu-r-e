@@ -18,6 +18,8 @@ import sopra.formation.model.Dispositif;
 import sopra.formation.model.Filiere;
 import sopra.formation.repository.IFiliereRepository;
 import sopra.formation.repository.IPersonneRepository;
+import sopra.formation.validator.FiliereValidator;
+import sopra.formation.validator.StagiaireValidator;
 
 @Controller
 @RequestMapping("/filiere")
@@ -59,11 +61,11 @@ public class FiliereController {
 
 	@PostMapping("/save")
 	public String save(@ModelAttribute("filiere") @Valid Filiere filiere, BindingResult result, Model model) {
-
+		new FiliereValidator().validate(filiere, result);
 		
 		if (result.hasErrors()) {
 			model.addAttribute("dispositifs", Dispositif.values());
-
+			model.addAttribute("referents", personneRepo.findAllFormateur());
 			return "filiere/form";
 		}
 		
