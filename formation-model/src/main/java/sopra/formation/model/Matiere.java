@@ -9,6 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "subject")
@@ -18,10 +22,12 @@ public class Matiere {
 	@Version
 	private int version;
 	@Column(name = "duration")
+	@Min(value = 0, message = "La durée doit être positive")
 	private Integer duree;
 	@Column(name = "requirement")
 	private String preRequis;
 	@Column(name = "objectives")
+	@Size(min = 1, message = "Ajouter au moins un objectif")
 	private String objectifs;
 	@Column(name = "program")
 	private String programme;
