@@ -59,7 +59,7 @@ public class MatiereController {
 	}
 
 	@PostMapping("/save")
-	public String save(@ModelAttribute("matiere") @Valid Matiere matiere,@RequestParam("nom") String nom, @RequestParam("niveau") NiveauMatiere niveauMatiere, BindingResult result, Model model) {
+	public String save(@ModelAttribute("matiere") @Valid Matiere matiere, @RequestParam("nom") String nom, @RequestParam("niveau") NiveauMatiere niveauMatiere, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			return "matiere/form";
 		}

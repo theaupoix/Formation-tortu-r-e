@@ -1,6 +1,8 @@
 
 package sopra.formation.web;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -16,9 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import sopra.formation.model.Formateur;
+import sopra.formation.model.MatiereId;
 import sopra.formation.model.NiveauEtude;
+import sopra.formation.model.NiveauMatiere;
 import sopra.formation.model.Stagiaire;
 import sopra.formation.repository.IEvaluationRepository;
+import sopra.formation.repository.IMatiereRepository;
 import sopra.formation.repository.IPersonneRepository;
 import sopra.formation.validator.StagiaireValidator;
 
@@ -28,6 +33,9 @@ public class FormateurController {
 
 	@Autowired
 	private IPersonneRepository personneRepo;
+
+	@Autowired
+	private IMatiereRepository matiereRepo;
 
 	public FormateurController() {
 		super();
@@ -45,6 +53,7 @@ public class FormateurController {
 	@GetMapping("/add")
 	public String add(Model model) {
 		model.addAttribute("formateur", new Formateur());
+		model.addAttribute("competences", matiereRepo.findAll());
 
 		return "formateur/form";
 	}
@@ -52,19 +61,30 @@ public class FormateurController {
 	@GetMapping("/edit")
 	public String edit(@RequestParam("id") Long id, Model model) {
 		model.addAttribute("formateur", personneRepo.findById(id).get());
+		model.addAttribute("competences", matiereRepo.findAll());
 
 		return "formateur/form";
 	}
 
 	@PostMapping("/save")
-	public String save(@ModelAttribute("formateur") @Valid Formateur formateur, BindingResult result, Model model) {
+	public String save(@ModelAttribute("formateur") @Valid Formateur formateur, BindingResult result, Model model,
+			@RequestParam("comps") String comps) {
 
 		if (result.hasErrors()) {
 			return "formateur/form";
 		}
 
-//		if(stagiaire.getEvaluation().getId()==null) {
-//			stagiaire.setEvaluation(null);
+		String listComp[] = comps.split(",");
+
+		for (int i = 0; i < listComp.length; i++) {
+			String matiere[] = listComp[i].split(":");
+
+			MatiereId matiereId = new MatiereId(matiere[0], NiveauMatiere.valueOf(matiere[1]));
+
+			formateur.getCompetences().add(matiereRepo.findById(matiereId).get());
+		}
+//		if(formateur.getCompetences().get==null) {
+//			formateur.setEvaluation(null);
 //		}
 
 		personneRepo.save(formateur);
