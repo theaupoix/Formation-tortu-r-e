@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -41,6 +42,7 @@ public class Filiere {
 	private Date dtDebut;
 	@Column(name = "duration")
 	@NotNull(message="Rentrez une duree")
+	@Min(value=0,message="Doit etre positif")
 	private Integer duree;
 	@Enumerated(EnumType.STRING)
 	@Column(name = "device")
