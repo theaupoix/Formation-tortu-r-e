@@ -20,7 +20,7 @@ public class ModuleValidator implements Validator {
 			errors.rejectValue("matiere.id", "notnull", "Matiere obligatoire");
 		}
 		if (module.getFiliere() == null || module.getFiliere().getId() == null) {
-			errors.rejectValue("filiere.id", "notnull", "Filiere obligatoire");
+			errors.rejectValue("filiere.id", "notnull", "{filiere.null}");
 		}
 		if (module.getFormateur() == null || module.getFormateur().getId() == null) {
 			errors.rejectValue("formateur.id", "notnull", "Formateur obligatoire");

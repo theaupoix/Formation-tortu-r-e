@@ -18,7 +18,6 @@ import javax.validation.constraints.Size;
 public class Module {
 	@Id
 	@NotNull (message = "{module.code.notnull}")
-	@Size(min = 1, message = "{module.code.size}")
 	private Integer code;
 	@Version
 	private int version;

@@ -21,6 +21,10 @@
 							<th>[[#{module.list.code}]]</th>
 							<th>[[#{module.list.duree}]]</th>
 							<th>[[#{module.list.ordre}]]</th>
+							<th>[[#{module.list.filiere}]]</th>
+							<th>[[#{module.list.salle}]]</th>
+							<th>[[#{module.list.formateur}]]</th>
+							<th>[[#{module.list.matiere}]]</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -30,6 +34,10 @@
 							<td>[[${module.code}]]</td>
 							<td>[[${module.duree}]]</td>
 							<td>[[${module.ordre}]]</td>
+							<td>[[${module.filiere}]]</td>
+							<td>[[${module.salle}]]</td>
+							<td>[[${module.formateur}]]</td>
+							<td>[[${module.matiere}]]</td>
 							<td><div class="btn-group btn-group-sm">
 									<a class="btn btn-primary"
 										th:href="@{/module/edit(id=${module.code})}"><i

@@ -34,8 +34,11 @@ public class ModuleControler {
 	private IModuleRepository moduleRepo;
 	@Autowired
 	private IFiliereRepository filiereRepo;
+	@Autowired
 	private ISalleRepository salleRepo;
+	@Autowired
 	private IPersonneRepository formateurRepo;
+	@Autowired
 	private IMatiereRepository matiereRepo;
 
 	public ModuleControler() {
@@ -53,10 +56,10 @@ public class ModuleControler {
 
 	@GetMapping("/add")
 	public String add(Model model) {
-		model.addAttribute("Filiere", new Filiere());
-		model.addAttribute("Salle", new Salle());
-		model.addAttribute("Formateur", new Formateur());
-		model.addAttribute("Matiere", new Matiere());
+		model.addAttribute("filieres", filiereRepo.findAll());
+//		model.addAttribute("salles", salleRepo.findAll());
+		model.addAttribute("formateurs", formateurRepo.findAll());
+		model.addAttribute("matieres", matiereRepo.findAll());
 
 		model.addAttribute("module", new Module());
 
@@ -69,23 +72,23 @@ public class ModuleControler {
 
 		model.addAttribute("module", moduleRepo.findById(code).get());
 
-		model.addAttribute("Filiere", filiereRepo.findAll());
-		model.addAttribute("Salle", salleRepo.findAll());
-		model.addAttribute("Formateur", formateurRepo.findAll());
-		model.addAttribute("Matiere", matiereRepo.findAll());
+		model.addAttribute("filieres", filiereRepo.findAll());
+//		model.addAttribute("salles", salleRepo.findAll());
+		model.addAttribute("formateurs", formateurRepo.findAll());
+		model.addAttribute("matieres", matiereRepo.findAll());
 		return "module/form";
 	}
 
 	@PostMapping("/save")
-	public String save(@ModelAttribute("id") @Valid Module module, BindingResult result, Model model) {
+	public String save(@ModelAttribute("module") @Valid Module module, BindingResult result, Model model) {
 		new ModuleValidator().validate(module, result);
 
 		if (result.hasErrors()) {
 
-			model.addAttribute("Filiere", filiereRepo.findAll());
-			model.addAttribute("Salle", salleRepo.findAll());
-			model.addAttribute("Formateur", formateurRepo.findAll());
-			model.addAttribute("Matiere", matiereRepo.findAll());
+			model.addAttribute("filieres", filiereRepo.findAll());
+			model.addAttribute("salles", salleRepo.findAll());
+			model.addAttribute("formateurs", formateurRepo.findAll());
+			model.addAttribute("matieres", matiereRepo.findAll());
 
 			return "module/form";
 		}

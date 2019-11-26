@@ -43,7 +43,8 @@
 							<option value="">Choisir une Filiere</option>
 							<option th:each="filiere : ${filieres}" th:value="${filiere.id}"
 								th:selected="${module.filiere?.id == filiere.id}">[[${filiere.id}]]
-								- [[${filiere.intitule}]]</option>
+								- [[${filiere.intitule}]]</option><span class="text-danger"
+							th:errors="${filiere.null}"></span>
 						</select>
 					</div>
 					<div class="form-group">
@@ -58,8 +59,7 @@
 						<select class="form-control" id="matiere" name=" matiere.id">
 							<option value="">Choisir une Matiere</option>
 							<option th:each="matiere : ${matieres}" th:value="${matiere.id}"
-								th:selected="${module.matiere?.id == matiere.id}">[[${matiere.id}]]
-								- [[${matiere.nom}]]</option>
+								th:selected="${module.matiere?.id == matiere.id}">[[${matiere.id.nom}]]</option>
 						</select>
 					</div>
 					<div class="form-group">
@@ -68,7 +68,7 @@
 							<option th:each="formateur : ${formateurs}"
 								th:value="${formateur.id}"
 								th:selected="${module.formateur?.id == formateur.id}">[[${formateur.id}]]
-								- [[${formateur.intitule}]]</option>
+								- [[${formateur.nom}]]</option>
 						</select>
 					</div>
 				</div>
